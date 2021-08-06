@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ReplyModel = require('../models/reply.model');
+const ReplyModel = require('../models/reply');
 
 //Creating an answer for a question
 router.post('/', async (req, res) => {
