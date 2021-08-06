@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const User = require("../models/user.model");
 const newToken = require("../utils/jwt");
+
 router.get("/", async (req, res) => {
   try {
     const users = await User.find().lean().exec();
