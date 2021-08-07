@@ -12,6 +12,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  try {
+    const users = await User.findByIdAndUpdate(req.params.id, req.body)
+      .lean()
+      .exec();
+    res.status(200).json({ users });
+  } catch (error) {
+    return res.status(500).json({ status: "failed", message: error.message });
+  }
+});
+
 router.post("/signup", async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email }).exec();
