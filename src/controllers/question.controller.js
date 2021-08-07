@@ -1,27 +1,33 @@
-const express = require('express');
-const router = express.Router();
-const QuestionModel = require('../models/question');
+const { Router } = require("express");
+const router = Router();
+const Question = require("../models/question.model");
+const protect = require("../middleware/protect");
+router.get("/", async (req, res) => {
+  try {
+    const questions = await Question.find().lean().exec();
+    return res.status(200).json({ questions });
+  } catch (error) {
+    return res.status(500).json({ status: "failed", message: error.message });
+  }
+});
 
-//Creating new question
-router.post('/', async (req, res) => {
-    const newQuestion  = new QuestionModel(req.body);
-    try {
-        const question = await newQuestion.save();
-        return res.status(201).json(question)
-    } catch(err) {
-        return res.status(500).json(err);
-    }
-})
+router.get("/:postId", async (req, res) => {
+  try {
+    const question = await Question.find({ postId: req.params.postId })
+      .lean()
+      .exec();
+    return res.status(200).json({ question });
+  } catch (error) {
+    return res.status(500).json({ status: "failed", message: error.message });
+  }
+});
 
-//Getting all the question asked by a user
-router.get('/:userId', async (req, res) => {
-    const id = req.params.userId;
-    try {
-        const questions = await QuestionModel.find({userId: id}).lean().exec();
-        return res.status(200).json(questions);
-    } catch(err) {
-        return res.status(500).json(err);
-    }
-})
-
+router.post("/", protect, async (req, res) => {
+  try {
+    const question = await Question.create(req.body);
+    return res.status(200).json({ question });
+  } catch (error) {
+    return res.status(500).json({ status: "failed", message: error.message });
+  }
+});
 module.exports = router;
