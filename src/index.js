@@ -13,11 +13,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
+
 app.use("/users", userController);
 
 app.use("/reply", replyRoute);
 app.use("/conversation", conversationRoute);
-app.use("/message", messageRoute);
+app.use("/messages", messageRoute);
 
 app.use("/question", questionController);
 app.use("/comment", commentController);
