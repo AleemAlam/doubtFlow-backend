@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 
 const userController = require("./controllers/user.controller");
+const questionController = require("./controllers/question.controller");
+const commentController = require("./controllers/comment.controller");
 const passport = require("./config/passport");
 
 const app = express();
@@ -9,6 +11,8 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 app.use("/users", userController);
+app.use("/question", questionController);
+app.use("/comment", commentController);
 
 passport.serializeUser(function (user, done) {
   done(null, user);

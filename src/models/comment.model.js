@@ -9,10 +9,6 @@ const commentSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "question",
     },
-    responseTo: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     content: {
       type: String,
     },
