@@ -3,7 +3,7 @@ const commentSchema = Schema(
   {
     writer: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
     },
     questionId: {
       type: Schema.Types.ObjectId,

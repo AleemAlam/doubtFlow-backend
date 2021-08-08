@@ -13,9 +13,10 @@ router.get("/", async (req, res) => {
 
 router.get("/:postId", async (req, res) => {
   try {
-    const question = await Question.find({ postId: req.params.postId })
+    const question = await Question.find({ _id: req.params.postId })
       .lean()
       .exec();
+      console.log(req.params.postId)
     return res.status(200).json({ question });
   } catch (error) {
     return res.status(500).json({ status: "failed", message: error.message });
